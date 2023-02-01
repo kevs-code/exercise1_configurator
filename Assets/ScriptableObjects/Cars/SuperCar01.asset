@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 011f33b4d9fa0af4bb519a855da03c5a, type: 3}
+  m_Name: SuperCar01
+  m_EditorClassIdentifier: 
+  engineClass: S Tier
+  carType: Super
+  coolFactor: Very
+  modibility: High
+  cost: 200000
+  myMaterials:
+  - {fileID: 2100000, guid: a05fef83aa3ec4b458b340deb592f00c, type: 2}
+  - {fileID: 2100000, guid: 6873f3a140e6b43468fbe0279a523fa5, type: 2}
+  - {fileID: 2100000, guid: 0ca6e263dd41d924ba549f3ea45b01e9, type: 2}
+  - {fileID: 2100000, guid: 7876f38b0d3c5d243ad01f5c7e6cee18, type: 2}
+  - {fileID: 2100000, guid: 1f4f2eca1b7c9df4caf1efed90a7d58c, type: 2}
+  - {fileID: 2100000, guid: ffa8ff5deabdcd64dae2445db0e6072a, type: 2}
+  - {fileID: 2100000, guid: 63f3fa2d701e97e4abce0a2732a8d01e, type: 2}
+  - {fileID: 2100000, guid: 22b96e715e0142743870a2086cace686, type: 2}
+  - {fileID: 2100000, guid: af9a2bec0a6d8d943a14741612258ba7, type: 2}
