@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject carParent;
     public GameObject cameraParent;
     public GameObject rowPrefab;
+    public GameObject[] rotators;
 
     private List<string> cameraList;
     private List<string> carList;
@@ -31,15 +32,37 @@ public class UIManager : MonoBehaviour
     private int currentCar = 0;
     private int currentCamera = 0;
     private int currentColour = 0;
+    private Vector3 currentPosition;
 
-
-    // Let's have a look at this rusty code #1
+    // Let's have a look at this rusty code #1 //refTransform
     void Start()
     {
+        EnableRotationScripts(); // hardwired for starting in front view
         GetGUILabels();
         GetMenuOptions();
         GetActiveSettings();
         GetSpecifications();
+    }
+
+
+    private void EnableRotationScripts()
+    {
+        // exposed variable very hard wired
+        currentPosition = rotators[0].transform.position;
+        foreach (GameObject rotator in rotators)
+        {
+            RotateGO item = rotator.GetComponent<RotateGO>();
+            item.enabled = true;
+        }
+        Debug.Log(currentPosition);
+    }
+
+    private void ResetTransform()
+    {
+        rotators[0].transform.position = currentPosition;
+        rotators[0].transform.rotation = new Quaternion(0, 0, 0, 1);
+        rotators[1].transform.position = new Vector3(0, 0, 0);
+        rotators[1].transform.rotation = new Quaternion(0, 0, 0, 1);
     }
 
     private void GetMenuOptions()
@@ -70,7 +93,6 @@ public class UIManager : MonoBehaviour
         colourText = colourCategory.GetComponentInChildren<TMPro.TextMeshProUGUI>();
     }
 
-    // this is the same method so add call parameters uses carparent and cartext
     private void UpdateCar()
     {
         foreach (Transform child in carParent.transform)
@@ -87,6 +109,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
     private void UpdateCamera()
     {
         foreach (Transform child in cameraParent.transform)
@@ -98,11 +121,32 @@ public class UIManager : MonoBehaviour
         {
             if (child.name == cameraText.text)
             {
+                RotateMainCamera(child);
                 child.gameObject.SetActive(true);
             }
         }
     }
-// method ends
+
+    private void RotateMainCamera(Transform child)
+    {
+        if (child.name == "MainCamera")
+        {
+            foreach (GameObject rotator in rotators)
+            {
+                RotateGO rotateItem = rotator.GetComponent<RotateGO>();
+                rotateItem.enabled = true;
+            }
+        }
+        else
+        {
+            foreach (GameObject rotator in rotators)
+            {
+                RotateGO rotateItem = rotator.GetComponent<RotateGO>();
+                rotateItem.enabled = false;
+            }
+            ResetTransform();
+        }
+    }
 
     private List<string> PopulateStatList()
     {
@@ -111,7 +155,6 @@ public class UIManager : MonoBehaviour
         return statLabel;
     }
 
-//
     private void GetMaterialsAndSpecs(Transform child)
     {
         myMaterials = child.GetComponent<ActiveCar>().specification.myMaterials;

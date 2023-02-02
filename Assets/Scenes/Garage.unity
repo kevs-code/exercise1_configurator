@@ -616,8 +616,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 763807969}
+  - component: {fileID: 763807970}
   m_Layer: 0
-  m_Name: Car Pool
+  m_Name: CarPool
   m_TagString: CarPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -642,6 +643,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &763807970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763807968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7519932d9fa2d104d8b9b56d87bbc682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &784486750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5247729178172931145, guid: 8b618f96409f42647a9e0b13c0b55f86, type: 3}
@@ -2309,6 +2322,18 @@ MonoBehaviour:
   m_ReflectLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1303164904805344448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303164904805344431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7519932d9fa2d104d8b9b56d87bbc682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9175051799539617214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2389,9 +2414,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 635738658}
     - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
+      propertyPath: rotators.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
       propertyPath: specificationParent
       value: 
       objectReference: {fileID: 1549161875}
+    - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
+      propertyPath: rotators.Array.data[0]
+      value: 
+      objectReference: {fileID: 1303164904805344431}
+    - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
+      propertyPath: rotators.Array.data[1]
+      value: 
+      objectReference: {fileID: 763807968}
     - target: {fileID: 9175051801469916094, guid: c9252680186fdbf439088872e0417eae, type: 3}
       propertyPath: m_Name
       value: CodeManager
