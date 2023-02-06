@@ -34,23 +34,42 @@ public class UIManager : MonoBehaviour
     private int currentCamera = 0;
     private int currentColour = 0;
     private Vector3 currentPosition;
+    private List<string> carsInScene;
+    private List<string> carsToImport;
 
     // Let's have a look at this rusty code #1 //refTransform
     void Start()
     {
-        GetCars();
+        GetCars(carParent);
         EnableRotationScripts(); // hardwired for starting in front view
+        GetCars(carParent);
         GetGUILabels();
         GetMenuOptions();
         GetActiveSettings();
         GetSpecifications();
     }
 
-    private void GetCars()
+    private void GetCars(GameObject parent)
     {
+        carsToImport =  new List<string>();
+        carsInScene = new List<string>();
+        foreach (Transform child in parent.transform)
+        {
+            carsInScene.Add(child.name.ToString());
+        }
         foreach (Specification car in cars)
         {
-            Debug.Log(car.name + " loves " + car.parentCar);
+            if (!carsInScene.Contains(car.name))
+            {
+                Debug.Log(car.name + " loves " + car.parentCar);
+                carsToImport.Add(car.name);
+            }
+            // Debug.Log(car.name + " loves " + car.parentCar);
+        }
+        Debug.Log(carsToImport.Count);
+        foreach (String inCar in carsToImport)
+        {
+            Debug.Log(inCar + "\n");
         }
     }
 
