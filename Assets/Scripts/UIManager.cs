@@ -118,11 +118,18 @@ public class UIManager : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-                carText.text = carName;// need to update all lists next
-                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);
+                carText.text = carName;
+                //rotators[0].GetComponent<RotateGO>().enabled = false;
+                //rotators[1].GetComponent<RotateGO>().enabled = false;
+                ResetTransform();
+                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//instantiateInWorldSpace
                 carAdded.transform.position = car.myPosition;
-                carAdded.transform.rotation = new Quaternion(car.myRotation.x, car.myRotation.y, car.myRotation.z, 1);
-                //UpdateCar(); for carlist specList
+                // carAdded.transform.rotation = new Quaternion(0, car.myRotation.y, 0, 1); doesn't work
+                carAdded.transform.Rotate(car.myRotation.x, car.myRotation.y, car.myRotation.z, Space.World);//Space.Self both spaces work but y=-145
+                Debug.Log(car.myRotation.y);
+                GetMenuOptions();
+                SetCurrentCarNum(carList.Count-1);
+                CarUpdater();
                 carsToImport.Remove(carName);
                 PopulateCarListFromParent(importParent, carsToImport);
             }
@@ -301,11 +308,11 @@ public class UIManager : MonoBehaviour
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
     }
 
-    public List<string> PopulateListFromParent(GameObject parent)
+    public List<string> PopulateListFromParent(GameObject parent)//make this repeatable it is!
     {
         List<string> options = new List<string>();
         int tempNum = 0;
-        // same method new tempNum exists a signature maybe and polymorphism overide nah
+        // same method new tempNum exists a signature maybe and polymorphism overide hmmm
         foreach (Transform child in parent.transform)
         {
             child.gameObject.SetActive(false);

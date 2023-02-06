@@ -2261,7 +2261,7 @@ PrefabInstance:
     - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
       propertyPath: cars.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 4ae1f7c2e10833746a1b81e345d31638, type: 2}
+      objectReference: {fileID: 11400000, guid: b2120f377fea93145815908c9322041c, type: 2}
     - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
       propertyPath: cars.Array.data[1]
       value: 

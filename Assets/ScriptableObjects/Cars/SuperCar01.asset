@@ -29,4 +29,4 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 22b96e715e0142743870a2086cace686, type: 2}
   - {fileID: 2100000, guid: af9a2bec0a6d8d943a14741612258ba7, type: 2}
   myPosition: {x: -0.13, y: -5.845882, z: -0.22}
-  myRotation: {x: 0, y: 0.95371693, z: 0, w: -0.3007058}
+  myRotation: {x: 0, y: 215, z: 0}

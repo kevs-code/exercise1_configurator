@@ -2370,7 +2370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19085eddbe17e3040a0c761a9e2cc5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specification: {fileID: 11400000, guid: 4ae1f7c2e10833746a1b81e345d31638, type: 2}
+  specification: {fileID: 11400000, guid: b2120f377fea93145815908c9322041c, type: 2}
   check: {fileID: 7177852747500914116}
 --- !u!1 &7172590086447443706
 GameObject:
