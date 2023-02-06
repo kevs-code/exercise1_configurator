@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     private Vector3 currentPosition;
     private List<string> carsInScene;
     private List<string> carsToImport;
+    private List<string> referenceCost;
 
     public object ImportOnClick { get; private set; }
 
@@ -48,7 +49,6 @@ public class UIManager : MonoBehaviour
     {
         GetCars(carParent);
         EnableRotationScripts(); // hardwired for starting in front view
-        GetCars(carParent);
         GetGUILabels();
         GetMenuOptions();
         GetActiveSettings();
@@ -59,6 +59,8 @@ public class UIManager : MonoBehaviour
     {
         carsToImport =  new List<string>();
         carsInScene = new List<string>();
+        referenceCost = new List<string>();
+
         foreach (Transform child in parent.transform)
         {
             carsInScene.Add(child.name.ToString());
@@ -69,6 +71,7 @@ public class UIManager : MonoBehaviour
             {
                 carsToImport.Add(car.name);
             }
+            referenceCost.AddRange(new string[] { car.name, car.cost.ToString() });
         }
         PopulateCarListFromParent(importParent, carsToImport);
     }
@@ -93,7 +96,7 @@ public class UIManager : MonoBehaviour
                     TMPro.TextMeshProUGUI car = child.GetComponent<TMPro.TextMeshProUGUI>();
                     car.text = importCarList[i];
                 }
-                // Add Listener, ugly code?
+
                 if (child.name == "Import")
                 {
                     child.GetComponent<Button>().onClick.AddListener(() =>
@@ -119,13 +122,10 @@ public class UIManager : MonoBehaviour
                     child.gameObject.SetActive(false);
                 }
                 carText.text = carName;
-                //rotators[0].GetComponent<RotateGO>().enabled = false;
-                //rotators[1].GetComponent<RotateGO>().enabled = false;
                 ResetTransform();
-                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//instantiateInWorldSpace
+                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//bool instantiateInWorldSpace
                 carAdded.transform.position = car.myPosition;
-                // carAdded.transform.rotation = new Quaternion(0, car.myRotation.y, 0, 1); doesn't work
-                carAdded.transform.Rotate(car.myRotation.x, car.myRotation.y, car.myRotation.z, Space.World);//Space.Self both spaces work but y=-145
+                carAdded.transform.Rotate(car.myRotation.x, car.myRotation.y, car.myRotation.z, Space.World);//Space.Self both spaces work but y=-145 inspector
                 Debug.Log(car.myRotation.y);
                 GetMenuOptions();
                 SetCurrentCarNum(carList.Count-1);
@@ -306,6 +306,32 @@ public class UIManager : MonoBehaviour
     {
         colourText.text = myMaterials[GetCurrentColNum()].ToString();
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
+        if (GetCurrentColNum() != 0)
+        {
+            for (int i = 0; i < referenceCost.Count; i++)
+            {
+                if (referenceCost[i] == mySpecs.name)
+                {
+                    if (mySpecs.cost == int.Parse(referenceCost[i + 1]))//no try
+                    {
+                        Debug.Log("+1000");
+                        mySpecs.cost += 1000;
+                    }
+                }
+            }
+        }
+        else
+        {
+            // need to switch off if it is
+            for (int i = 0; i < referenceCost.Count; i++)
+            {
+                if (referenceCost[i] == mySpecs.name)
+                {
+                    mySpecs.cost = int.Parse(referenceCost[i + 1]);
+
+                }
+            }
+        }
     }
 
     public List<string> PopulateListFromParent(GameObject parent)//make this repeatable it is!
