@@ -17,6 +17,7 @@ MonoBehaviour:
   coolFactor: Meh
   modibility: Low
   cost: 20000
+  parentCar: {fileID: 3181389256714015051, guid: 22e8c74eb59594444989a37723966f7d, type: 3}
   myMaterials:
   - {fileID: 2100000, guid: 07f44fe3e9c462146a7769b976c50ec4, type: 2}
   - {fileID: 2100000, guid: d2344366b80fe3d4f886ec412e0174fa, type: 2}

@@ -17,6 +17,7 @@ MonoBehaviour:
   coolFactor: Very
   modibility: Armed
   cost: 1000000
+  parentCar: {fileID: 1906370397330909333, guid: 30000980178c64a4dad62e2db93c5704, type: 3}
   myMaterials:
   - {fileID: 2100000, guid: 5b18f818978a2ef46a6ac2345a785199, type: 2}
   - {fileID: 2100000, guid: 20e0ae80a8a227b4882d1ed32d0acaa3, type: 2}

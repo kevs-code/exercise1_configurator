@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 011f33b4d9fa0af4bb519a855da03c5a, type: 3}
+  m_Name: Car1202
+  m_EditorClassIdentifier: 
+  engineClass: S Tier
+  carType: Sport
+  coolFactor: Very
+  modibility: High
+  cost: 150000
+  parentCar: {fileID: 7172570971665255030, guid: 9db40c622ffc39145bf5b01b0bb20bbd, type: 3}
+  myMaterials:
+  - {fileID: 2100000, guid: 39389d950d501414fa10f5fff7b0d3c6, type: 2}
+  - {fileID: 2100000, guid: 1950a865d8c2a374fa8110871d61fd64, type: 2}
+  - {fileID: 2100000, guid: 7d1bed27130ab714cb0d0776aca180f3, type: 2}
+  - {fileID: 2100000, guid: 814e0187b9bdc40449a017b699fffe60, type: 2}
+  - {fileID: 2100000, guid: 1b2e1f310ca626a4c8b03248d8e09247, type: 2}

@@ -8,6 +8,7 @@ public class ShowHideUI : MonoBehaviour
 
     void Start()
     {
+        if (uiContainer.name == "PriceGUI") { return; }
         uiContainer.SetActive(false);
     }
     public void GetUpdate()

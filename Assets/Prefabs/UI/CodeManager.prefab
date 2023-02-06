@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9175051801469916092}
   - component: {fileID: 9175051801469916093}
+  - component: {fileID: 1966218759}
+  - component: {fileID: 1966218760}
   m_Layer: 0
   m_Name: CodeManager
   m_TagString: Untagged
@@ -45,9 +47,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specificationParent: {fileID: 0}
+  cartParent: {fileID: 0}
   cameraCategory: {fileID: 0}
   carCategory: {fileID: 0}
   colourCategory: {fileID: 0}
   carParent: {fileID: 0}
   cameraParent: {fileID: 0}
   rowPrefab: {fileID: 2598794108190101398, guid: 1a6b701eabb81fb459635b2f2bb2e09c, type: 3}
+  rotators:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1966218759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9175051801469916094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753560088f171804e938701b61bffb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiContainer: {fileID: 0}
+--- !u!114 &1966218760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9175051801469916094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7957d57f77f084429e857b4915daba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -17,6 +17,7 @@ MonoBehaviour:
   coolFactor: Very
   modibility: High
   cost: 200000
+  parentCar: {fileID: 8765025632658261425, guid: b0ea3322e3ba40f4a8953de2a95249cc, type: 3}
   myMaterials:
   - {fileID: 2100000, guid: a05fef83aa3ec4b458b340deb592f00c, type: 2}
   - {fileID: 2100000, guid: 6873f3a140e6b43468fbe0279a523fa5, type: 2}
@@ -27,3 +28,5 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 63f3fa2d701e97e4abce0a2732a8d01e, type: 2}
   - {fileID: 2100000, guid: 22b96e715e0142743870a2086cace686, type: 2}
   - {fileID: 2100000, guid: af9a2bec0a6d8d943a14741612258ba7, type: 2}
+  myPosition: {x: -0.13, y: -5.845882, z: -0.22}
+  myRotation: {x: 0, y: 0.95371693, z: 0, w: -0.3007058}

@@ -17,6 +17,7 @@ MonoBehaviour:
   coolFactor: Very
   modibility: High
   cost: 210000
+  parentCar: {fileID: 6750242318243065805, guid: 3c1eb4da18e97ec4a8e393861e023ac9, type: 3}
   myMaterials:
   - {fileID: 2100000, guid: c35c7d5e33766674d8a3e2078892b059, type: 2}
   - {fileID: 2100000, guid: d796cd947be0fc341aeee42ba0f62719, type: 2}

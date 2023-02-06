@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject cameraParent;
     public GameObject rowPrefab;
     public GameObject[] rotators;
+    public Specification[] cars;
 
     private List<string> cameraList;
     private List<string> carList;
@@ -23,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     private Material[] myMaterials;
     private Transform myMesh;
-    private Specification mySpecs;
+    private Specification mySpecs;// maybe obsolete now!
 
     private TMPro.TextMeshProUGUI cameraText;
     private TMPro.TextMeshProUGUI carText;
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
     // Let's have a look at this rusty code #1 //refTransform
     void Start()
     {
+        GetCars();
         EnableRotationScripts(); // hardwired for starting in front view
         GetGUILabels();
         GetMenuOptions();
@@ -44,10 +46,16 @@ public class UIManager : MonoBehaviour
         GetSpecifications();
     }
 
+    private void GetCars()
+    {
+        foreach (Specification car in cars)
+        {
+            Debug.Log(car.name + " loves " + car.parentCar);
+        }
+    }
 
     private void EnableRotationScripts()
     {
-        // exposed variable very hard wired
         currentPosition = rotators[0].transform.position;
         foreach (GameObject rotator in rotators)
         {
