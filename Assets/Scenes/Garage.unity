@@ -508,6 +508,11 @@ Transform:
   m_Father: {fileID: 1891331218}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.749, y: 0, z: 0}
+--- !u!1 &622729248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6877249578721869686, guid: 8b618f96409f42647a9e0b13c0b55f86, type: 3}
+  m_PrefabInstance: {fileID: 1549161872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &635738658 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6707569727378295945, guid: 8b618f96409f42647a9e0b13c0b55f86, type: 3}
@@ -2234,6 +2239,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1891331217}
     - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
+      propertyPath: importParent
+      value: 
+      objectReference: {fileID: 622729248}
+    - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
       propertyPath: cameraCategory
       value: 
       objectReference: {fileID: 784486750}
@@ -2245,6 +2254,10 @@ PrefabInstance:
       propertyPath: cars.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
+      propertyPath: importRowPrefab
+      value: 
+      objectReference: {fileID: 6639470466782467387, guid: 5c6c4e4102a1bff4ea20dabb4f876e24, type: 3}
     - target: {fileID: 9175051801469916093, guid: c9252680186fdbf439088872e0417eae, type: 3}
       propertyPath: cars.Array.data[0]
       value: 

@@ -7,12 +7,14 @@ public class UIManager : MonoBehaviour
 {
     public GameObject specificationParent;
     public GameObject cartParent;
+    public GameObject importParent;
     public GameObject cameraCategory;
     public GameObject carCategory;
     public GameObject colourCategory;
     public GameObject carParent;
     public GameObject cameraParent;
     public GameObject rowPrefab;
+    public GameObject importRowPrefab;
     public GameObject[] rotators;
     public Specification[] cars;
 
@@ -67,12 +69,34 @@ public class UIManager : MonoBehaviour
             // Debug.Log(car.name + " loves " + car.parentCar);
         }
         Debug.Log(carsToImport.Count);
-        foreach (String inCar in carsToImport)
+        PopulateCarListFromParent(importParent, carsToImport);
+        /*foreach (String inCar in carsToImport)
         {
             Debug.Log(inCar + "\n");
+        }*/
+    }
+    
+    private void PopulateCarListFromParent(GameObject parent, List<string> importCarList)
+    {
+        foreach (Transform child in parent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < importCarList.Count; i++)
+        {
+            GameObject importRow = Instantiate<GameObject>(importRowPrefab, parent.transform);
+            foreach (Transform child in importRow.transform)
+            {
+                if (child.name == "Car")
+                {
+                    TMPro.TextMeshProUGUI car = child.GetComponent<TMPro.TextMeshProUGUI>();
+                    car.text = importCarList[i];
+                }
+            }
         }
     }
-
+    
     private void EnableRotationScripts()
     {
         currentPosition = rotators[0].transform.position;
