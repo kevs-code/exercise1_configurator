@@ -93,7 +93,7 @@ public class UIManager : MonoBehaviour
                     TMPro.TextMeshProUGUI car = child.GetComponent<TMPro.TextMeshProUGUI>();
                     car.text = importCarList[i];
                 }
-                //? Add Listener
+                // Add Listener, ugly code?
                 if (child.name == "Import")
                 {
                     child.GetComponent<Button>().onClick.AddListener(() =>
@@ -107,9 +107,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void ImportCarOnClick(string v)
+    private void ImportCarOnClick(string carName)
     {
-        Debug.Log("Saint" + v);
+        foreach (Specification car in cars)
+        {
+            if (car.name == carName)
+            {
+                Debug.Log("Ready " + carName);
+                foreach (Transform child in carParent.transform)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                carText.text = carName;// need to update all lists next
+                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);
+                carAdded.transform.position = car.myPosition;
+                carAdded.transform.rotation = new Quaternion(car.myRotation.x, car.myRotation.y, car.myRotation.z, 1);
+                //UpdateCar(); for carlist specList
+                carsToImport.Remove(carName);
+                PopulateCarListFromParent(importParent, carsToImport);
+            }
+
+        }
+
     }
 
     private void EnableRotationScripts()
