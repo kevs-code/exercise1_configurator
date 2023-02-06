@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Garage.Specs;
 using System;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -39,6 +41,8 @@ public class UIManager : MonoBehaviour
     private List<string> carsInScene;
     private List<string> carsToImport;
 
+    public object ImportOnClick { get; private set; }
+
     // Let's have a look at this rusty code #1 //refTransform
     void Start()
     {
@@ -63,17 +67,10 @@ public class UIManager : MonoBehaviour
         {
             if (!carsInScene.Contains(car.name))
             {
-                Debug.Log(car.name + " loves " + car.parentCar);
                 carsToImport.Add(car.name);
             }
-            // Debug.Log(car.name + " loves " + car.parentCar);
         }
-        Debug.Log(carsToImport.Count);
         PopulateCarListFromParent(importParent, carsToImport);
-        /*foreach (String inCar in carsToImport)
-        {
-            Debug.Log(inCar + "\n");
-        }*/
     }
     
     private void PopulateCarListFromParent(GameObject parent, List<string> importCarList)
@@ -86,6 +83,9 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < importCarList.Count; i++)
         {
             GameObject importRow = Instantiate<GameObject>(importRowPrefab, parent.transform);
+            
+            
+            
             foreach (Transform child in importRow.transform)
             {
                 if (child.name == "Car")
@@ -93,10 +93,25 @@ public class UIManager : MonoBehaviour
                     TMPro.TextMeshProUGUI car = child.GetComponent<TMPro.TextMeshProUGUI>();
                     car.text = importCarList[i];
                 }
+                //? Add Listener
+                if (child.name == "Import")
+                {
+                    child.GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        TMPro.TextMeshProUGUI carLabel = importRow.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+                        ImportCarOnClick(carLabel.text);
+                    });
+                }
             }
+            
         }
     }
-    
+
+    private void ImportCarOnClick(string v)
+    {
+        Debug.Log("Saint" + v);
+    }
+
     private void EnableRotationScripts()
     {
         currentPosition = rotators[0].transform.position;
