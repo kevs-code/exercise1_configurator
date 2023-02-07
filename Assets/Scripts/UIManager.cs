@@ -116,17 +116,15 @@ public class UIManager : MonoBehaviour
         {
             if (car.name == carName)
             {
-                Debug.Log("Ready " + carName);
                 foreach (Transform child in carParent.transform)
                 {
                     child.gameObject.SetActive(false);
                 }
                 carText.text = carName;
                 ResetTransform();
-                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//bool instantiateInWorldSpace
+                GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//bool instantiateInWorldSpace not used
                 carAdded.transform.position = car.myPosition;
                 carAdded.transform.Rotate(car.myRotation.x, car.myRotation.y, car.myRotation.z, Space.World);//Space.Self both spaces work but y=-145 inspector
-                Debug.Log(car.myRotation.y);
                 GetMenuOptions();
                 SetCurrentCarNum(carList.Count-1);
                 CarUpdater();
@@ -146,7 +144,6 @@ public class UIManager : MonoBehaviour
             RotateGO item = rotator.GetComponent<RotateGO>();
             item.enabled = true;
         }
-        Debug.Log(currentPosition);
     }
 
     private void ResetTransform()
@@ -297,6 +294,11 @@ public class UIManager : MonoBehaviour
     {
         carText.text = carList[GetCurrentCarNum()];
         UpdateCar();
+        PopulateSpecs();
+    }
+
+    private void PopulateSpecs()
+    {
         PopulateSpecFromCarParent(carParent);
         specList = PopulateSpecificationsListFromParent(specificationParent);
         cartList = PopulateSpecificationsListFromParent(cartParent);
@@ -306,39 +308,64 @@ public class UIManager : MonoBehaviour
     {
         colourText.text = myMaterials[GetCurrentColNum()].ToString();
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
+        ShowHideUI[] myToggles = FindObjectsOfType(typeof(ShowHideUI), true) as ShowHideUI[];//toggles including inactive
         if (GetCurrentColNum() != 0)
         {
-            for (int i = 0; i < referenceCost.Count; i++)
+            AddOneThousand();
+
+            foreach (ShowHideUI toggle in myToggles)
             {
-                if (referenceCost[i] == mySpecs.name)
+                if (toggle.gameObject.name == "PriceGUI")
                 {
-                    if (mySpecs.cost == int.Parse(referenceCost[i + 1]))//no try
-                    {
-                        Debug.Log("+1000");
-                        mySpecs.cost += 1000;
-                    }
+                    toggle.gameObject.SetActive(true);
                 }
             }
         }
-        else
+        else// if == 0 set at reference cost on entering play mode
         {
-            // need to switch off if it is
-            for (int i = 0; i < referenceCost.Count; i++)
+            foreach (ShowHideUI toggle in myToggles)
             {
-                if (referenceCost[i] == mySpecs.name)
+                if (toggle.gameObject.name == "PriceGUI")
                 {
-                    mySpecs.cost = int.Parse(referenceCost[i + 1]);
-
+                    toggle.GetUpdate();
                 }
+            }
+            ResetPlayModeCost();
+        }
+    }
+
+    private void ResetPlayModeCost()
+    {
+        for (int i = 0; i < referenceCost.Count; i++)
+        {
+            if (referenceCost[i] == mySpecs.name)
+            {
+                mySpecs.cost = int.Parse(referenceCost[i + 1]);// should be base cost
+                PopulateSpecs();
             }
         }
     }
 
-    public List<string> PopulateListFromParent(GameObject parent)//make this repeatable it is!
+    private void AddOneThousand()
+    {
+        for (int i = 0; i < referenceCost.Count; i++)
+        {
+            if (referenceCost[i] == mySpecs.name)
+            {
+                if (mySpecs.cost == int.Parse(referenceCost[i + 1]))//no TryParse
+                {
+                    mySpecs.cost += 1000;
+                }
+                PopulateSpecs();
+            }
+        }
+    }
+
+    public List<string> PopulateListFromParent(GameObject parent)
     {
         List<string> options = new List<string>();
         int tempNum = 0;
-        // same method new tempNum exists a signature maybe and polymorphism overide hmmm
+
         foreach (Transform child in parent.transform)
         {
             child.gameObject.SetActive(false);
@@ -372,7 +399,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // there is a better way, so much getters and setters code for such a simple thing as tracking 3 integers!
     public int GetCurrentCarNum()
     {
         return currentCar;
