@@ -14,7 +14,7 @@ namespace Garage.Specs
         public int cost = 2000;
         public GameObject parentCar;
         public Material[] myMaterials;
-        public Vector3 myPosition = new Vector3((float)-0.129999995, (float)-5.84588194, (float)-0.219999999);
+        public Vector3 myPosition = new Vector3((float)-0.129999995, (float)-5.855, (float)-0.219999999);
         public Vector3 myRotation = new Vector3(0, (float)214.999985, 0);
     }
 }

@@ -4,6 +4,7 @@ using Garage.Specs;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -42,17 +43,36 @@ public class UIManager : MonoBehaviour
     private List<string> carsToImport;
     private List<string> referenceCost;
 
+    private List<String> superCar01 = new List<string> { "Black", "Blue", "Gold", "Green", "Orange", "Red", "Rose Pink", "Soft Pink", "White" };
+    private List<String> spyCar01 = new List<string> { "Dark Blue", "Green", "Orange", "White", "Dark Green", "Black", "Matte White", "Cyan" };
+    private List<String> car1203 = new List<string> { "Black", "Blue", "Green", "White", "Yellow" };
+    private List<String> car1202 = new List<string> { "White", "Black", "Blue", "Yellow", "Red" };
+    private List<String> kitCar = new List<string> { "Yellow", "Blue", "Red", "Grey", "Purple" };
+    private Dictionary<string, List<String>> colorNames = new Dictionary<string, List<String>>();
+    //List<List<string>> colorNames = new List<List<string>>();
+    //colorNames.AddRange(new List<String>[] { superCar01, spyCar01, car1203, car1202, kitCar });//Dictionary better
+
     public object ImportOnClick { get; private set; }
 
     // Let's have a look at this rusty code #1 //refTransform
     void Start()
     {
+        ColorDictionary();
         GetCars(carParent);
         EnableRotationScripts(); // hardwired for starting in front view
         GetGUILabels();
         GetMenuOptions();
         GetActiveSettings();
         GetSpecifications();
+    }
+
+    private void ColorDictionary()
+    {
+        colorNames.Add("SuperCar01", superCar01);
+        colorNames.Add("SpyCar01", spyCar01);
+        colorNames.Add("Car1202", car1202);
+        colorNames.Add("Car1203", car1203);
+        colorNames.Add("KitCar", kitCar);
     }
 
     private void GetCars(GameObject parent)
