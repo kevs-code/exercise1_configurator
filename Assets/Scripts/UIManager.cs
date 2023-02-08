@@ -200,7 +200,8 @@ public class UIManager : MonoBehaviour
     {
         cameraText.text = cameraList[GetCurrentCamNum()];
         carText.text = carList[GetCurrentCarNum()];
-        colourText.text = myMaterials[GetCurrentColNum()].ToString();
+        colourText.text = colorNames[carList[GetCurrentCarNum()]][GetCurrentColNum()];
+        // colourText.text = myMaterials[GetCurrentColNum()].ToString();
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
     }
 
@@ -337,7 +338,8 @@ public class UIManager : MonoBehaviour
 
     private void ColorUpdater()
     {
-        colourText.text = myMaterials[GetCurrentColNum()].ToString();
+        //colourText.text = myMaterials[GetCurrentColNum()].ToString();
+        colourText.text = colorNames[carList[GetCurrentCarNum()]][GetCurrentColNum()];
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
         ShowHideUI[] myToggles = FindObjectsOfType(typeof(ShowHideUI), true) as ShowHideUI[];//toggles including inactive
         if (GetCurrentColNum() != 0)
