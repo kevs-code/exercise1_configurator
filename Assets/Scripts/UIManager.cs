@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     public GameObject importRowPrefab;
     public GameObject[] rotators;
     public Specification[] cars;
+    public AudioList audioList;
+    public Button audioButton;
 
     private List<string> cameraList;
     private List<string> carList;
@@ -34,7 +36,7 @@ public class UIManager : MonoBehaviour
     private TMPro.TextMeshProUGUI cameraText;
     private TMPro.TextMeshProUGUI carText;
     private TMPro.TextMeshProUGUI colourText;
-    
+
     private int currentCar = 0;
     private int currentCamera = 0;
     private int currentColour = 0;
@@ -55,8 +57,11 @@ public class UIManager : MonoBehaviour
     public object ImportOnClick { get; private set; }
 
     // Let's have a look at this rusty code #1 //refTransform
+
     void Start()
     {
+        MusicPlayer();
+        SoundPlayer();
         ColorDictionary();
         GetCars(carParent);
         EnableRotationScripts(); // hardwired for starting in front view
@@ -65,6 +70,50 @@ public class UIManager : MonoBehaviour
         GetActiveSettings();
         GetSpecifications();
         //ColorUpdater();
+    }
+    private void SoundPlayer()
+    {
+        AudioSource audioSource = carParent.GetComponent<AudioSource>();
+
+        GameObject[] gameObjects = new GameObject[] { cameraCategory, carCategory, colourCategory };
+        foreach (GameObject gameObject in gameObjects)
+        {
+            Button[] buttons = gameObject.GetComponentsInChildren<Button>();
+            foreach (Button button in buttons)
+            {
+                button.onClick.AddListener(() =>
+                {
+                    SoundOnOff(audioSource);
+                });
+
+            }
+
+        }
+    }
+
+    private void MusicPlayer()
+    {
+        AudioSource audioSource = cameraParent.GetComponent<AudioSource>();
+        audioButton.onClick.AddListener(() =>
+        {
+            SoundOnOff(audioSource);
+        });
+    }
+
+    public void SoundOnOff(AudioSource audioSource)
+    {
+        if (!audioSource.isPlaying)
+        {
+            if (audioSource.gameObject.name == "CarPool")
+            {
+               audioSource.clip = audioList.click; //otherClip;
+            }
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     private void ColorDictionary()
