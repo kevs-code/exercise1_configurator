@@ -43,11 +43,11 @@ public class UIManager : MonoBehaviour
     private List<string> carsToImport;
     private List<string> referenceCost;
 
-    private List<String> superCar01 = new List<string> { "Black", "Blue", "Gold", "Green", "Orange", "Red", "Rose Pink", "Soft Pink", "White" };
-    private List<String> spyCar01 = new List<string> { "Dark Blue", "Green", "Orange", "White", "Dark Green", "Black", "Matte White", "Cyan" };
-    private List<String> car1203 = new List<string> { "Black", "Blue", "Green", "White", "Yellow" };
-    private List<String> car1202 = new List<string> { "White", "Black", "Blue", "Yellow", "Red" };
-    private List<String> kitCar = new List<string> { "Yellow", "Blue", "Red", "Grey", "Purple" };
+    private List<String> bugatti = new List<string> { "Black", "Blue", "Gold", "Green", "Orange", "Red", "Rose Pink", "Soft Pink", "White" };
+    private List<String> aston = new List<string> { "Dark Blue", "Green", "Orange", "White", "Dark Green", "Black", "Matte White", "Cyan" };
+    private List<String> lamborghini = new List<string> { "Black", "Blue", "Green", "White", "Yellow" };
+    private List<String> porsche = new List<string> { "White", "Black", "Blue", "Yellow", "Red" };
+    private List<String> sport = new List<string> { "Yellow", "Blue", "Red", "Grey", "Purple" };
     private Dictionary<string, List<String>> colorNames = new Dictionary<string, List<String>>();
     //List<List<string>> colorNames = new List<List<string>>();
     //colorNames.AddRange(new List<String>[] { superCar01, spyCar01, car1203, car1202, kitCar });//Dictionary better
@@ -68,11 +68,11 @@ public class UIManager : MonoBehaviour
 
     private void ColorDictionary()
     {
-        colorNames.Add("SuperCar01", superCar01);
-        colorNames.Add("SpyCar01", spyCar01);
-        colorNames.Add("Car1202", car1202);
-        colorNames.Add("Car1203", car1203);
-        colorNames.Add("KitCar", kitCar);
+        colorNames.Add("Bugatti", bugatti);
+        colorNames.Add("Aston", aston);
+        colorNames.Add("Porsche", porsche);
+        colorNames.Add("Lamborghini", lamborghini);
+        colorNames.Add("Sport", sport);
     }
 
     private void GetCars(GameObject parent)
@@ -140,9 +140,10 @@ public class UIManager : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-                carText.text = carName;
+                carText.text = carName;//
                 ResetTransform();
                 GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//bool instantiateInWorldSpace not used
+                carAdded.name = carName;
                 carAdded.transform.position = car.myPosition;
                 carAdded.transform.Rotate(car.myRotation.x, car.myRotation.y, car.myRotation.z, Space.World);//Space.Self both spaces work but y=-145 inspector
                 GetMenuOptions();
@@ -238,7 +239,7 @@ public class UIManager : MonoBehaviour
 
     private void RotateMainCamera(Transform child)
     {
-        if (child.name == "MainCamera")
+        if (child.name == "Main Rotate")
         {
             foreach (GameObject rotator in rotators)
             {
