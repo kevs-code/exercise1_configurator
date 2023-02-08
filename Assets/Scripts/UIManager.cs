@@ -64,6 +64,7 @@ public class UIManager : MonoBehaviour
         GetMenuOptions();
         GetActiveSettings();
         GetSpecifications();
+        //ColorUpdater();
     }
 
     private void ColorDictionary()
@@ -147,14 +148,21 @@ public class UIManager : MonoBehaviour
                 carAdded.transform.position = car.myPosition;
                 carAdded.transform.Rotate(car.myRotation.x, car.myRotation.y, car.myRotation.z, Space.World);//Space.Self both spaces work but y=-145 inspector
                 GetMenuOptions();
-                SetCurrentCarNum(carList.Count-1);
+                SetCurrentCarNum(carList.Count - 1);
                 CarUpdater();
+                ResetColor();
                 carsToImport.Remove(carName);
                 PopulateCarListFromParent(importParent, carsToImport);
             }
 
         }
 
+    }
+
+    private void ResetColor()
+    {
+        SetCurrentColNum(0);
+        ColorUpdater();
     }
 
     private void EnableRotationScripts()
@@ -315,7 +323,9 @@ public class UIManager : MonoBehaviour
     {
         carText.text = carList[GetCurrentCarNum()];
         UpdateCar();
+        //ResetColor();
         PopulateSpecs();
+        ResetColor();
     }
 
     private void PopulateSpecs()
@@ -325,7 +335,7 @@ public class UIManager : MonoBehaviour
         cartList = PopulateSpecificationsListFromParent(cartParent);
     }
 
-    private void ColourUpdater()
+    private void ColorUpdater()
     {
         colourText.text = myMaterials[GetCurrentColNum()].ToString();
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
@@ -348,7 +358,8 @@ public class UIManager : MonoBehaviour
             {
                 if (toggle.gameObject.name == "PriceGUI")
                 {
-                    toggle.GetUpdate();
+                    toggle.gameObject.SetActive(false);
+                    //toggle.GetUpdate();
                 }
             }
             ResetPlayModeCost();
@@ -520,7 +531,7 @@ public class UIManager : MonoBehaviour
         {
             SetCurrentColNum(tempNumber);
         }
-        ColourUpdater();
+        ColorUpdater();
     }
     public void NextColour()
     {
@@ -533,6 +544,6 @@ public class UIManager : MonoBehaviour
         {
             SetCurrentColNum(tempNumber);
         }
-        ColourUpdater();
+        ColorUpdater();
     }
 }
