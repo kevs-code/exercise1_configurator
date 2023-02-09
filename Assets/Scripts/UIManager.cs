@@ -3,8 +3,7 @@ using UnityEngine;
 using Garage.Specs;
 using System;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using Unity.VisualScripting;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,6 +21,7 @@ public class UIManager : MonoBehaviour
     public Specification[] cars;
     public AudioList audioList;
     public Button audioButton;
+    public float colorChangeDuration = 3.0f;
 
     private List<string> cameraList;
     private List<string> carList;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 
     private Material[] myMaterials;
     private Transform myMesh;
-    private Specification mySpecs;// maybe obsolete now!
+    private Specification mySpecs;
 
     private TMPro.TextMeshProUGUI cameraText;
     private TMPro.TextMeshProUGUI carText;
@@ -40,6 +40,9 @@ public class UIManager : MonoBehaviour
     private int currentCar = 0;
     private int currentCamera = 0;
     private int currentColour = 0;
+    private int refNumber = 0;
+    
+
     private Vector3 currentPosition;
     private List<string> carsInScene;
     private List<string> carsToImport;
@@ -51,12 +54,8 @@ public class UIManager : MonoBehaviour
     private List<String> porsche = new List<string> { "White", "Black", "Blue", "Yellow", "Red" };
     private List<String> sport = new List<string> { "Yellow", "Blue", "Red", "Grey", "Purple" };
     private Dictionary<string, List<String>> colorNames = new Dictionary<string, List<String>>();
-    //List<List<string>> colorNames = new List<List<string>>();
-    //colorNames.AddRange(new List<String>[] { superCar01, spyCar01, car1203, car1202, kitCar });//Dictionary better
 
     public object ImportOnClick { get; private set; }
-
-    // Let's have a look at this rusty code #1 //refTransform
 
     void Start()
     {
@@ -64,12 +63,11 @@ public class UIManager : MonoBehaviour
         SoundPlayer();
         ColorDictionary();
         GetCars(carParent);
-        EnableRotationScripts(); // hardwired for starting in front view
+        EnableRotationScripts();
         GetGUILabels();
         GetMenuOptions();
         GetActiveSettings();
         GetSpecifications();
-        //ColorUpdater();
     }
     private void SoundPlayer()
     {
@@ -106,7 +104,7 @@ public class UIManager : MonoBehaviour
         {
             if (audioSource.gameObject.name == "CarPool")
             {
-               audioSource.clip = audioList.click; //otherClip;
+               audioSource.clip = audioList.click;
             }
             audioSource.Play();
         }
@@ -190,7 +188,7 @@ public class UIManager : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-                carText.text = carName;//
+                carText.text = carName;
                 ResetTransform();
                 GameObject carAdded = Instantiate<GameObject>(car.parentCar, carParent.transform);//bool instantiateInWorldSpace not used
                 carAdded.name = carName;
@@ -210,7 +208,9 @@ public class UIManager : MonoBehaviour
 
     private void ResetColor()
     {
+        refNumber = 0;
         SetCurrentColNum(0);
+        myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
         ColorUpdater();
     }
 
@@ -250,7 +250,6 @@ public class UIManager : MonoBehaviour
         cameraText.text = cameraList[GetCurrentCamNum()];
         carText.text = carList[GetCurrentCarNum()];
         colourText.text = colorNames[carList[GetCurrentCarNum()]][GetCurrentColNum()];
-        // colourText.text = myMaterials[GetCurrentColNum()].ToString();
         myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
     }
 
@@ -373,7 +372,6 @@ public class UIManager : MonoBehaviour
     {
         carText.text = carList[GetCurrentCarNum()];
         UpdateCar();
-        //ResetColor();
         PopulateSpecs();
         ResetColor();
     }
@@ -387,9 +385,8 @@ public class UIManager : MonoBehaviour
 
     private void ColorUpdater()
     {
-        //colourText.text = myMaterials[GetCurrentColNum()].ToString();
         colourText.text = colorNames[carList[GetCurrentCarNum()]][GetCurrentColNum()];
-        myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
+        LetLerpMesh();
         ShowHideUI[] myToggles = FindObjectsOfType(typeof(ShowHideUI), true) as ShowHideUI[];//toggles including inactive
         if (GetCurrentColNum() != 0)
         {
@@ -410,14 +407,48 @@ public class UIManager : MonoBehaviour
                 if (toggle.gameObject.name == "PriceGUI")
                 {
                     toggle.gameObject.SetActive(false);
-                    //toggle.GetUpdate();
                 }
             }
             ResetPlayModeCost();
         }
     }
 
-    private void ResetPlayModeCost()
+
+
+
+    private void LetLerpMesh()
+    {
+        if (refNumber == GetCurrentColNum())
+        {
+            // Debug.Log("car imported");
+            // moved myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
+            return;
+        }
+        if (mySpecs.name == "Sport" | mySpecs.name == "Aston")
+        {
+            myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
+        }
+        else
+        {
+            colorChangeDuration = 3.0f;
+            Material material1 = myMaterials[refNumber];
+            Material material2 = myMaterials[GetCurrentColNum()];
+            Renderer rend = myMesh.GetComponent<MeshRenderer>();
+            StartCoroutine(materialLerpIn(material1, material2, rend));
+        }
+    }
+
+    IEnumerator materialLerpIn(Material material1, Material material2, Renderer rend)
+    {
+        for (float t = 0.01f; t < colorChangeDuration; t += 0.02f)
+        {
+            rend.material.Lerp(material1, material2, t / colorChangeDuration);
+            yield return null;
+        }
+    }
+
+
+private void ResetPlayModeCost()
     {
         for (int i = 0; i < referenceCost.Count; i++)
         {
@@ -572,6 +603,7 @@ public class UIManager : MonoBehaviour
     }
     public void PreviousColour()
     {
+        refNumber = GetCurrentColNum();
         int tempNumber = GetCurrentColNum() - 1;
 
         if (tempNumber < 0)
@@ -586,6 +618,7 @@ public class UIManager : MonoBehaviour
     }
     public void NextColour()
     {
+        refNumber = GetCurrentColNum();
         int tempNumber = GetCurrentColNum() + 1;
         if (tempNumber > myMaterials.Length - 1)
         {
