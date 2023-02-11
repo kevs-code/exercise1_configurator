@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     public Specification[] cars;
     public AudioList audioList;
     public Button audioButton;
-    public float colorChangeDuration = 3.0f;
+    public float colorChangeDuration = 2.0f;
 
     private List<string> cameraList;
     private List<string> carList;
@@ -426,6 +426,8 @@ public class UIManager : MonoBehaviour
         }
         if (mySpecs.name == "Sport" | mySpecs.name == "Aston")
         {
+            // myMesh.GetComponent<MeshRenderer>().material.color = Color.red;
+            // myMesh.GetComponent<MeshRenderer>().material.color = myMaterials[GetCurrentColNum()].color;//then color.lerp
             myMesh.GetComponent<MeshRenderer>().material = myMaterials[GetCurrentColNum()];
         }
         else
@@ -440,7 +442,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator materialLerpIn(Material material1, Material material2, Renderer rend)
     {
-        for (float t = 0.01f; t < colorChangeDuration; t += 0.02f)
+        for (float t = 0.01f; t < colorChangeDuration; t += 0.05f)
         {
             rend.material.Lerp(material1, material2, t / colorChangeDuration);
             yield return null;
